@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>User Details</h2>
+
+<h3>Below mentioned details are captured</h3>
+<button onclick="getLocation()">Allow location Access</button>
+
+<p id="demo"></p>
+
+
+
+<script>
+var txt = "";
+txt += "<p>Browser CodeName: " + navigator.appCodeName + "</p>";
+txt += "<p>Browser Name: " + navigator.appName + "</p>";
+txt += "<p>Browser Version: " + navigator.appVersion + "</p>";
+txt += "<p>Cookies Enabled: " + navigator.cookieEnabled + "</p>";
+txt += "<p>Browser Language: " + navigator.language + "</p>";
+txt += "<p>Browser Online: " + navigator.onLine + "</p>";
+txt += "<p>Platform: " + navigator.platform + "</p>";
+txt += "<p>User-agent header: " + navigator.userAgent + "</p>";
+txt += "<p>URL Locator: " + window.location.href + "</p>";
+txt += "<p>Host Name: " + location.hostname + "</p>";
+txt += "<p>Path Name: " + location.pathname + "</p>";
+txt += "<p>User-agent header: " + document.referrer + "</p>";
+txt += "<p>User-agent Last Modified :" + document.lastModified  + "</p>";
+txt += "<p>Input Encoding :" + document.inputEncoding  + "</p>";
+txt += "<p>Browser Mode :" + document.documentMode  + "</p>";
+txt += "<p>Browser Width :" + window.innerWidth  + "</p>";
+txt += "<p>Browser Java Enabled :" + navigator.javaEnabled()  + "</p>"; 
+txt += "<p>User TimeStamp :" + Date() + "</p>"; 
+document.getElementById("demo").innerHTML = txt;
+</script>
+
+<script type="application/javascript">
+  function getIP(json) {
+    document.write("Public IP Address: ", json.ip);
+  }
+</script>
+
+<script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
+
+
+<p id="demo1"></p>
+<script>
+var x = document.getElementById("demo1"); 
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x.innerHTML= "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
