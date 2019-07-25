@@ -6,13 +6,13 @@
 
 <h3>Below mentioned details are captured</h3>
 <button onclick="getLocation()">Allow location Access</button>
+<input type="button" id="btSave" value="Click Here" onclick="saveFile()" />
 
 <p id="demo"></p>
 
-
-
 <script>
 var txt = "";
+var val = " ";
 txt += "<p>Browser CodeName: " + navigator.appCodeName + "</p>";
 txt += "<p>Browser Name: " + navigator.appName + "</p>";
 txt += "<p>Browser Version: " + navigator.appVersion + "</p>";
@@ -29,23 +29,29 @@ txt += "<p>User-agent Last Modified :" + document.lastModified  + "</p>";
 txt += "<p>Input Encoding :" + document.inputEncoding  + "</p>";
 txt += "<p>Browser Mode :" + document.documentMode  + "</p>";
 txt += "<p>Browser Width :" + window.innerWidth  + "</p>";
-txt += "<p>Browser Java Enabled :" + navigator.javaEnabled()  + "</p>"; 
+txt += "<p>Browser Java Enabled :" + navigator.javaEnabled()  + "</p>";
+txt += "<p>Parent Location :" + window.parent.location  + "</p>";  
 txt += "<p>User TimeStamp :" + Date() + "</p>"; 
 document.getElementById("demo").innerHTML = txt;
+val=txt;
 </script>
 
 <script type="application/javascript">
   function getIP(json) {
     document.write("Public IP Address: ", json.ip);
+	val += "<p>Public IP Address: "+ json.ip+"</p>";
   }
+
 </script>
 
 <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
 
 
 <p id="demo1"></p>
+
 <script>
-var x = document.getElementById("demo1"); 
+var x = document.getElementById("demo1");
+
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
@@ -57,10 +63,41 @@ function getLocation() {
 function showPosition(position) {
   x.innerHTML= "Latitude: " + position.coords.latitude + 
   "<br>Longitude: " + position.coords.longitude;
+  val += "<p>Location "+ x.innerHTML +"</p>";
 }
+
 </script>
+
+<script>
+    function saveFile() {
+
+		var data = val;
+        
+        // Convert the text to a BLOB.
+        var textToBLOB = new Blob([data], { type: 'text/plain' });
+        var sFileName = 'Data.txt';	   // The file to save the data.
+
+        var newLink = document.createElement("a");
+        newLink.download = sFileName;
+
+        if (window.webkitURL != null) {
+            newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+        }
+        else {
+            newLink.href = window.URL.createObjectURL(textToBLOB);
+            newLink.style.display = "none";
+            document.body.appendChild(newLink);
+        }
+
+        newLink.click();
+    }
+</script>
+
+
 </body>
 </html>
+
+
 
 
 
